@@ -49,6 +49,9 @@ A collection of linux sysadmin/devops interview questions. Feel free to contribu
 * What is SMTP? Give the basic scenario of how a mail message is delivered via SMTP.
 * What is RAID? What is RAID0, RAID1, RAID5, RAID10?
 * What is a level 0 backup? What is an incremental backup?
+```
+Incremental backups can be either level 0 or level 1. A level 0 incremental backup, which is the base for subsequent incremental backups, copies all blocks containing data, backing the datafile up into a backup set just as a full backup would. The only difference between a level 0 incremental backup and a full backup is that a full backup is never included in an incremental strategy.
+```
 * Describe the general file system hierarchy of a Linux system.
 * Which difference have between public and private SSH key?
 
