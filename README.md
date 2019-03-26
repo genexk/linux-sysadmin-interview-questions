@@ -144,11 +144,22 @@ modprobe -r module_name #remove module
 
 * What do the following commands do and how would you use them?
  * ```tee```
+ ls | tee filename
  * ```awk```
+ awk -F: '{print $1}' /etc/passwd
  * ```tr```
+ tr [] {}
+ tr -d [] #delete char
+ tr -s #squeez
  * ```cut```
+ cut -b #byte -c #char
+ cut -f #field -d delimiters
  * ```tac```
+ inverse cat
  * ```curl```
+ curl -h #header
+ -O #original filename
+ -o filename #
  * ```wget```
  * ```watch```
  * ```head```
@@ -157,7 +168,17 @@ modprobe -r module_name #remove module
  * ```cat```
  * ```touch```
  * ```sar```
+ 
  * ```netstat```
+ -a all
+ -t tcp
+ -u udp
+ -p pid
+ -n ip numbers
+ -l listening port only
+ -r routing info
+ -i list interfaces
+ -s statistics
  * ```tcpdump```
  * ```lsof```
 * What does an ```&``` after a command do?
