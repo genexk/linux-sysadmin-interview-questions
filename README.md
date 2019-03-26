@@ -168,7 +168,15 @@ modprobe -r module_name #remove module
  * ```cat```
  * ```touch```
  * ```sar```
- 
+ sar -u 1 3 # -u cpu usage, every 1 sec 3 times
+ -P core#/ALL # 0 for first core
+ -r memory
+ -S swapspace
+ -b general i/o
+ -d all block devices
+ -w context switch/sec
+ -q runqueue and load avg
+ -n KEYWORD #network stats, DEV devices, SOCK socket usage...ALL for all usage
  * ```netstat```
  -a all
  -t tcp
@@ -180,7 +188,19 @@ modprobe -r module_name #remove module
  -i list interfaces
  -s statistics
  * ```tcpdump```
+ tcpdump -C 512 -W 8 -s 256 -w /data/support/tcpdump/gpdbgang_issue -i bond0 "tcp port 8020"
+ -A include ascii, 
+ filters: tcp, udp, host x.x.x.x, dst/src x.x.x.x, and or not for combining filters
+ -s capture size, -n/nn n not resolve hostname nn not resolve hostname and port
+ -W filename, -v/vv verbose
  * ```lsof```
+ list all open files
+ -u user
+ -i TCP:22-200 # or -i :port
+ -i 4/6 #ipv4/6
+ -i all network connection
+ -p pid
+ fuser filename
 * What does an ```&``` after a command do?
 * What does ```& disown``` after a command do?
 * What is a packet filter and how does it work?
@@ -263,6 +283,13 @@ modprobe -r module_name #remove module
 
 * A running process gets ```EAGAIN: Resource temporarily unavailable``` on reading a socket. How can you close this bad socket/file descriptor without killing the process?
 * What do you control with swapiness?
+```
+sudo sysctl vm.swappiness=10
+0 for not swapping until memory is full
+1 for lowest swapping aggressiveness
+100 for highest
+swapoff -a #also disable swap partitions
+```
 * How do you change TCP stack buffers? How do you calculate it?
 * What is Huge Tables? Why isn't it enabled by default? Why and when use it?
 * What is LUKS? How to use it?
