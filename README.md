@@ -59,34 +59,83 @@ Incremental backups can be either level 0 or level 1. A level 0 incremental back
 #### [[⬆]](#toc) <a name='simple'>Simple Linux Questions:</a>
 
 * What is the name and the UID of the administrator user?
+0
 * How to list all files, including hidden ones, in a directory?
+ls -la
 * What is the Unix/Linux command to remove a directory and its contents?
+rm -rf
 * Which command will show you free/used memory? Does free memory exist on Linux?
+free -m #-m for mega -b for bytes, -k -g etc. -h human readable
 * How to search for the string "my konfu is the best" in files of a directory recursively?
+grep -r "my konfu is the best"
+-i ignore case, -v inverse, -n line number, grep "^start.*" can use regex, -c count # of matching lines
 * How to connect to a remote server or what is SSH?
+ssh user@host
 * How to get all environment variables and how can you use them?
+env
+env -i command #run cmd with no env, unset variable_name
 * I get "command not found" when I run ```ifconfig -a```. What can be wrong?
+nettools package not installed?
 * What happens if I type TAB-TAB?
+auto-complete
 * What command will show the available disk space on the Unix/Linux system?
+df
+-a all info, -h human readable, -T print type, -i show inode info
 * What commands do you know that can be used to check DNS records?
+dig @ns_server redhat.com NS +noall +answer
+dig redhat.com +short #ipaddress only
+dig axfr domain #domain transfer
+nslookup -type=any/mx/ns... hostname dnsserver
+host hostname
 * What Unix/Linux commands will alter a files ownership, files permissions?
+chown -R user:group filename # -R for recursive
 * What does ```chmod +x FILENAME``` do?
+add all execute 
+-R for recursive
++X for directory
++s setuid
++t sticky
+chmod =rwx,g+s samplescript.sh
 * What does the permission 0750 on a file mean?
 * What does the permission 0750 on a directory mean?
 * How to add a new system user without login permissions?
+adduser -r -s /bin/nologin newuser
+-r for system user, but really no difference between this and a normal user, only in a specific range of uid #s
 * How to add/remove a group from a user?
+remove user from group in /etc/group
+usermod
+-g change primary group
+-G add secondary groups
 * What is a bash alias?
+alias foo="echo bar"
 * How do you set the mail address of the root/a user?
 * What does CTRL-c do?
+send sigstop
 * What does CTRL-d do?
+Control+D is EOF (End-Of-File). It closes the stdin pipe. If read(STDIN) returns 0, it means stdin closed, which means CTRL+D was hit (assuming there is a keyboard at the other end of the pipe).
 * What does CTRL-z do?
+send sigint
 * What is in /etc/services?
+programs can do a getportbyname() sockets call in their code in order to understand what port they should use
+name port/protocol aliases comments
+smtp 25/tcp mail
 * How to redirect STDOUT and STDERR in bash? (> /dev/null 2>&1)
+> /dev/null 2>&1
 * What is the difference between UNIX and Linux.
+different kernel code
 * What is the difference between Telnet and SSH?
+ssh is encrypted by a shared secret
 * Explain the three load averages and what do they indicate. What command can be used to view the load averages?
+1, 5, 15 minutes average runqueue length
 * Can you name a lower-case letter that is not a valid option for GNU ```ls```?
 * What is a Linux kernel module?
+pieces of code that can be loaded and unloaded into the kernel upon demand.  They extend the functionality of the kernel without the need to reboot the system. drivers, etc
+lsmod
+modinfo module_name
+To list the options that are set for a loaded module: systool -v -m module_name
+modprobe module_name #load module
+insmod filename [args] #load module by file
+modprobe -r module_name #remove module
 * Walk me through the steps in booting into single user mode to troubleshoot a problem.
 * Walk me through the steps you'd take to troubleshoot a 404 error on a web application you administer.
 * What is ICMP protocol? Why do you need to use?
