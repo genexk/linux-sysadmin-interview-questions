@@ -93,8 +93,8 @@ chown -R user:group filename # -R for recursive
 add all execute 
 -R for recursive
 +X for directory
-+s setuid
-+t sticky
++s setuid # execute the file as file owner
++t sticky # file can't be modified by anyone but owner
 chmod =rwx,g+s samplescript.sh
 * What does the permission 0750 on a file mean?
 * What does the permission 0750 on a directory mean?
@@ -160,6 +160,7 @@ modprobe -r module_name #remove module
  curl -h #header
  -O #original filename
  -o filename #
+ -L follow redirects
  * ```wget```
  * ```watch```
  * ```head```
@@ -201,6 +202,23 @@ modprobe -r module_name #remove module
  -i all network connection
  -p pid
  fuser filename
+ * ```ncat```
+ ```
+ ncat -l 8080 #listen to port 8080
+ ncat 192.168.1.100 8080 #connect to port 8080 on remote server
+ ncat -l 8080 | ncat 192.168.1.200 80 #proxy
+ # 2 way traffic
+ $ mkfifo 2way
+ $ ncat -l 8080 0<2way | ncat 192.168.1.200 80 1>2way
+ ncat -l 10000 -e /bin/bash #-e attach shell to port 10000, this gives access to whoever connects to this port (backdoor)
+ ```
+ * ```dd```
+ dd if = /dev/sda of = /dev/sdb
+ dd if=/dev/hda1 of=~/partition.img
+ dd if = hdadisk.img of = /dev/hdb
+ dd if = /dev/cdrom of = tgsservice.iso bs = 2048
+ dd if=/dev/zero of=/dev/sdb
+ dd if=/dev/zero of=/swapfile bs=1024 count=200000
 * What does an ```&``` after a command do?
 * What does ```& disown``` after a command do?
 * What is a packet filter and how does it work?
@@ -209,13 +227,24 @@ modprobe -r module_name #remove module
 * What is an A record, an NS record, a PTR record, a CNAME record, an MX record?
 * Are there any other RRs and what are they used for?
 * What is a Split-Horizon DNS?
+provide 2 views of dns records to different set of users (internal vs external)
 * What is the sticky bit?
 * What does the immutable bit do to a file?
+```
+chatter +i filename #make the file immutable
+chatter -i filename #unset
+```
 * What is the difference between hardlinks and symlinks? What happens when you remove the source to a symlink/hardlink?
+softlink okay
+hardlink file+hardlink is deleted
 * What is an inode and what fields are stored in an inode?
+where the file is on the device, dates, number of links
 * How to force/trigger a file system check on next reboot?
+touch /forcefsck
 * What is SNMP and what is it used for?
 * What is a runlevel and how to get the current runlevel?
+init runlevel#
+use runlevel command to check current level
 * What is SSH port forwarding?
 * What is the difference between local and remote port forwarding?
 * What are the steps to add a user to a system without using useradd/adduser?
@@ -237,9 +266,10 @@ modprobe -r module_name #remove module
 * What is the difference between a process and a thread? And parent and child processes after a fork system call?
 * What is the difference between exec and fork?
 * What is "nohup" used for?
+prevent hangup signal
 * What is the difference between these two commands?
- * ```myvar=hello```
- * ```export myvar=hello```
+ * ```myvar=hello``` this will not be inherited by child process
+ * ```export myvar=hello``` this will
 * How many NTP servers would you configure in your local ntp.conf?
 * What does the column 'reach' mean in ```ntpq -p``` output?
 * You need to upgrade kernel at 100-1000 servers, how you would do this?
